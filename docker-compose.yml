@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+    postgres-service:
+        build: ./postgres
+        ports:
+            - 5442:5432
+    website:
+        build: ./tomcat
+        ports:
+            - 8090:8080
+        depends_on:
+            - postgres-service
