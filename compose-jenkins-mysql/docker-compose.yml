@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+    mysql:
+        image: mysql:5.7.18
+        ports:
+            - '3306:3306'
+        container_name: contestmanager-mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=admin
+            - MYSQL_DATABASE=contestmanager
+            - MYSQL_USER=dbuser
+            - MYSQL_PASSWORD=dbpass
+    jenkins:
+        image: jenkinsci/jenkins:dbb
+        ports:
+            - '8083:8080'
+            - '50000:50000'
+        container_name: dbaonguis-jenkins-v2
+        volumes:
+            - jenkins_home:/var/jenkins_home
+        depends_on:
+            - mysql
+volumes:
+    jenkins_home:
+        external: true
